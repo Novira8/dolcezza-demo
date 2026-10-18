@@ -252,6 +252,21 @@ br.m{display:none}@media(max-width:700px){br.m{display:inline}}
 .opts{display:flex;flex-wrap:wrap;gap:10px}
 .opts label{display:flex;align-items:center;gap:8px;font-size:14px;border:1px solid var(--line);padding:9px 14px;cursor:pointer}
 .opts input{accent-color:var(--acc)}
+/* donut options: pastel glaze per option (--dn), hole shows the pill colour, sprinkles when chosen */
+.opts label{position:relative;border-radius:999px;padding:8px 16px 8px 9px;transition:background .35s,border-color .35s}
+.opts input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.opts label::before{content:'';flex:none;width:24px;height:24px;border-radius:50%;
+  background:radial-gradient(circle,transparent 0 3.5px,var(--dn) 4px 8px,#ecd7b4 8.5px 11.5px,transparent 12px);
+  filter:saturate(.75) opacity(.85);transform:scale(1.15);transition:transform .45s cubic-bezier(.34,1.56,.64,1),filter .35s}
+.opts label:hover::before{transform:rotate(25deg) scale(1.28)}
+.opts label:has(input:checked){background:color-mix(in srgb,var(--dn) 30%,#fff);border-color:var(--dn)}
+.opts label:has(input:checked)::before{filter:none;animation:dn-pop .5s;
+  background:radial-gradient(circle at 34% 30%,#fff 0 1px,transparent 1.4px),radial-gradient(circle at 70% 38%,#fff 0 1px,transparent 1.4px),
+    radial-gradient(circle at 40% 72%,#fff 0 1px,transparent 1.4px),
+    radial-gradient(circle,transparent 0 3.5px,var(--dn) 4px 8px,#ecd7b4 8.5px 11.5px,transparent 12px)}
+.opts label:has(input:focus-visible){outline:1px solid var(--acc);outline-offset:2px}
+@keyframes dn-pop{0%{transform:scale(.8)}60%{transform:scale(1.35) rotate(20deg)}100%{transform:scale(1.15)}}
+@media(prefers-reduced-motion:reduce){.opts label:has(input:checked)::before{animation:none}}
 .total{text-align:center;border-left:1px solid var(--line);padding-left:40px}
 .total .lbl{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--stone)}
 .total .sum{font-family:'Cormorant Garamond',serif;font-size:clamp(56px,7vw,84px);line-height:1.1;color:var(--acc)}
@@ -466,12 +481,12 @@ footer .cr{width:100%;border-top:1px solid rgba(176,141,87,.45);margin-top:30px;
           <select id="kg"></select></div>
         <div class="field"><span class="t" style="display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--stone);margin-bottom:10px"><span class="it">Versione</span><span class="ru">Вариант</span></span>
           <div class="opts">
-            <label><input type="radio" name="v" value="c" checked><span class="it">Classica</span><span class="ru">Основной</span></label>
-            <label><input type="radio" name="v" value="e"><span class="it">Accessibile</span><span class="ru">Доступный</span></label>
+            <label style="--dn:#e3bcc6"><input type="radio" name="v" value="c" checked><span class="it">Classica</span><span class="ru">Основной</span></label>
+            <label style="--dn:#bfd8cb"><input type="radio" name="v" value="e"><span class="it">Accessibile</span><span class="ru">Доступный</span></label>
           </div></div>
         <div class="field"><div class="opts">
-          <label><input type="checkbox" id="free"><span class="it">Senza lattosio / glutine / frutta a guscio</span><span class="ru">Без лактозы / глютена / орехов</span></label>
-          <label><input type="checkbox" id="urg"><span class="it">Urgente (meno di 3 giorni)</span><span class="ru">Срочно (меньше 3 дней)</span></label>
+          <label style="--dn:#e8d7a6"><input type="checkbox" id="free"><span class="it">Senza lattosio / glutine / frutta a guscio</span><span class="ru">Без лактозы / глютена / орехов</span></label>
+          <label style="--dn:#cebfe2"><input type="checkbox" id="urg"><span class="it">Urgente (meno di 3 giorni)</span><span class="ru">Срочно (меньше 3 дней)</span></label>
         </div></div>
       </div>
       <div class="total">
