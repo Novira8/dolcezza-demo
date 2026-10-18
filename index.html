@@ -163,13 +163,25 @@ br.m{display:none}@media(max-width:700px){br.m{display:inline}}
 .gal-bar{position:relative}
 .gal-nav{display:flex;align-items:center;gap:14px;position:absolute;right:0;top:50%;transform:translateY(-50%)}
 @media(max-width:980px){.gal-nav{position:static;transform:none;justify-content:center;margin:0 0 10px}}
-/* elegant round arrows: thin gold ring, hairline chocolate arrow */
+/* cupcake arrows: lilac frosting, cherry, paper liner with the arrow */
 .gal-nav{gap:10px}
-.gal-nav button{width:40px;height:40px;border-radius:50%;border:1px solid var(--gold-line);background:transparent;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;transition:background .35s,border-color .35s}
-.gal-nav button svg{width:16px;height:16px;fill:none;stroke:var(--ink);stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round}
-.gal-nav button:hover{background:var(--lilac-bg);border-color:var(--acc)}
-.gal-nav button:hover svg{stroke:var(--acc)}
+.gal-nav button{width:52px;height:56px;padding:0;border:0;background:transparent;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
+.gal-nav button svg{width:100%;height:100%;overflow:visible;transition:transform .45s cubic-bezier(.34,1.56,.64,1)}
+.gal-nav .cc-cream{fill:var(--lilac);stroke:var(--acc);stroke-width:1}
+.gal-nav .cc-liner{fill:#fff;stroke:var(--gold-line);stroke-width:1}
+.gal-nav .cc-pleat{fill:none;stroke:var(--gold-line);stroke-width:.8}
+.gal-nav .cc-cherry{fill:var(--acc)}
+.gal-nav .cc-stem{fill:none;stroke:var(--acc-dk);stroke-width:1;stroke-linecap:round}
+.gal-nav .cc-arrow{fill:none;stroke:var(--ink);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;transition:transform .35s,stroke .35s}
+.gal-nav button:hover svg{animation:cc-breathe .9s ease-in-out infinite}
+@keyframes cc-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.16)}}
+@media(prefers-reduced-motion:reduce){.gal-nav button:hover svg{animation:none}}
+.gal-nav button:hover .cc-arrow{stroke:var(--acc)}
+#gal-prev:hover .cc-arrow{transform:translateX(-2px)}
+#gal-next:hover .cc-arrow{transform:translateX(2px)}
+.gal-nav button:active svg{transform:scale(.92,.86);transition-duration:.12s}
+.gal-nav button:focus-visible{outline:1px solid var(--acc);outline-offset:2px}
 .cake .ph{background:#fff;padding:8px;margin-bottom:14px;box-shadow:0 16px 34px -16px rgba(70,45,95,.4),0 2px 6px rgba(29,26,22,.05);transition:transform .5s,box-shadow .5s}
 .cake:hover .ph{transform:translateY(-4px) rotate(-.6deg);box-shadow:0 26px 44px -18px rgba(70,45,95,.5)}
 .cake .ph img{display:block}
@@ -212,7 +224,7 @@ br.m{display:none}@media(max-width:700px){br.m{display:inline}}
   .order-r ol{margin:4px 0 18px}.order-r li{padding:7px 0 7px 44px}
   .demo-tag{bottom:8px;right:8px;padding:7px 12px;font-size:9px}
 }
-@media(min-width:861px) and (max-height:700px){.cake .ph img{height:32vh}.gal-nav button{width:36px;height:36px}#prezzi{padding:24px 0}}
+@media(min-width:861px) and (max-height:700px){.cake .ph img{height:32vh}.gal-nav button{width:44px;height:48px}#prezzi{padding:24px 0}}
 @media(min-width:861px) and (max-height:820px){.plan .tag{display:none}.plan h3{margin-bottom:10px}.extra{padding:12px 24px!important}.extra b{font-size:32px!important}.incl{margin-top:10px!important;font-size:14px}}
 .plan h3{font-size:clamp(24px,4.4vh,32px);font-weight:400}
 .plan .tag{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);margin:6px 0 22px}
@@ -387,8 +399,8 @@ footer .cr{width:100%;border-top:1px solid rgba(176,141,87,.45);margin-top:30px;
         <button data-f="bimbi"><span class="it">Per bambini</span><span class="ru">Детские</span></button>
       </div>
       <div class="gal-nav">
-        <button type="button" id="gal-prev" aria-label="Indietro / Назад"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
-        <button type="button" id="gal-next" aria-label="Avanti / Вперёд"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <button type="button" id="gal-prev" aria-label="Indietro / Назад"><svg viewBox="0 0 52 56"><path class="cc-stem" d="M26 5q1-3 5-4"/><circle class="cc-cherry" cx="26" cy="7.5" r="3.2"/><path class="cc-cream" d="M10 30C6 30 6 23 11 22C9 17 14 13 19 15C19 10 25 8 28 11C32 8 38 11 36 16C42 15 45 21 41 24C46 26 45 30 41 30Z"/><path class="cc-liner" d="M12 30H40L36.5 50H15.5Z"/><path class="cc-pleat" d="M17 32L18.5 48M35 32L33.5 48"/><path class="cc-arrow" d="M32 40H20M23.5 36.5L20 40L23.5 43.5"/></svg></button>
+        <button type="button" id="gal-next" aria-label="Avanti / Вперёд"><svg viewBox="0 0 52 56"><path class="cc-stem" d="M26 5q1-3 5-4"/><circle class="cc-cherry" cx="26" cy="7.5" r="3.2"/><path class="cc-cream" d="M10 30C6 30 6 23 11 22C9 17 14 13 19 15C19 10 25 8 28 11C32 8 38 11 36 16C42 15 45 21 41 24C46 26 45 30 41 30Z"/><path class="cc-liner" d="M12 30H40L36.5 50H15.5Z"/><path class="cc-pleat" d="M17 32L18.5 48M35 32L33.5 48"/><path class="cc-arrow" d="M20 40H32M28.5 36.5L32 40L28.5 43.5"/></svg></button>
       </div>
     </div>
     <div class="gal" id="gal">
