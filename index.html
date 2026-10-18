@@ -350,7 +350,8 @@ footer .cr{width:100%;border-top:1px solid rgba(176,141,87,.45);margin-top:30px;
 /* small, unobtrusive demo label; clicks pass through so it never blocks a button */
 .demo-tag{position:fixed;bottom:8px;right:8px;z-index:80;background:rgba(47,29,20,.82);color:var(--lilac);pointer-events:none;
   font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;padding:5px 10px}
-@media(max-width:640px){.demo-tag{bottom:10px;left:auto;right:10px;font-size:8.5px;padding:6px 10px;opacity:.85}}
+/* on phones the floating label covered the hero title — park it as a strip at the very end of the page */
+@media(max-width:640px){.demo-tag{position:static;display:block;text-align:center;font-size:8.5px;padding:10px;background:#2f1d14}}
 </style>
 </head>
 <body>
