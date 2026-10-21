@@ -102,6 +102,14 @@ nav.solid{background:#f7f4ef;border-bottom:1px solid var(--gold-line)}
 .mmenu a.mi .n{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:var(--acc);min-width:26px}
 .mmenu a.mi:active{color:var(--acc)}
 .mmenu .btn{display:block;margin-top:30px}
+/* Telegram bot button: outline, secondary to WhatsApp */
+.btn.tg{border-color:var(--acc);color:var(--acc)}
+.btn.tg:hover{background:var(--acc);border-color:var(--acc);color:#fff}
+.mmenu .btn.tg{margin-top:12px}
+.order-r .btn.tg{display:block;width:100%;margin-top:12px;border-color:var(--lilac);color:var(--lilac)}
+.order-r .btn.tg:hover{background:var(--lilac);color:var(--ink)}
+.tg-line{margin-top:14px;font-size:13px;color:var(--stone)}
+.tg-line a{color:var(--acc);text-decoration:underline;text-underline-offset:3px}
 .mmenu .note{margin-top:14px;text-align:center;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--stone)}
 @media(max-width:640px){.mmenu{padding:10px 18px 32px}.mmenu a.mi{font-size:27px;padding:12px 0}}
 @media(prefers-reduced-motion:reduce){.mmenu,.burger span{transition:none}}
@@ -431,6 +439,7 @@ footer .cr{width:100%;border-top:1px solid rgba(176,141,87,.45);margin-top:30px;
   <a class="mi" href="#domande"><span class="n">05</span><span class="it">Domande</span><span class="ru">Вопросы</span></a>
   <a class="mi" href="#ordina"><span class="n">06</span><span class="it">Contatti</span><span class="ru">Контакты</span></a>
   <a class="btn acc wa-link" href="https://wa.me/393342411256" target="_blank" rel="noopener"><span class="it">Ordina su WhatsApp</span><span class="ru">Заказать в WhatsApp</span></a>
+  <a class="btn tg" href="https://t.me/DolcezzaTorteBot?start=site" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.4 15.2l-.4 4.3c.6 0 .8-.3 1.1-.6l2.7-2.5 5.5 4c1 .6 1.7.3 2-.9l3.6-16.8c.3-1.5-.6-2.1-1.6-1.7L1.2 9.5c-1.4.6-1.4 1.4-.2 1.8l5.4 1.7 12.5-7.9c.6-.4 1.1-.2.7.2z"/></svg><span class="it">Catalogo su Telegram</span><span class="ru">Каталог в Telegram</span></a>
   <div class="note"><span class="it">Rispondo di solito entro un'ora</span><span class="ru">Обычно отвечаю в течение часа</span></div>
 </div>
 
@@ -579,6 +588,7 @@ footer .cr{width:100%;border-top:1px solid rgba(176,141,87,.45);margin-top:30px;
         <div class="sum" id="sum">50 €</div>
         <div class="note"><span class="it">Secondo il listino. Il peso giusto lo decidiamo insieme.</span><span class="ru">По прайсу. Точный вес решим вместе.</span></div>
         <a class="btn acc wa-live" id="calc-wa" href="https://wa.me/393342411256" target="_blank" rel="noopener"><span class="it">Invia su WhatsApp</span><span class="ru">Отправить в WhatsApp</span></a>
+        <div class="tg-line"><span class="it">oppure scegliete la torta con il <a href="https://t.me/DolcezzaTorteBot?start=site" target="_blank" rel="noopener">bot su Telegram</a>: c'è il catalogo</span><span class="ru">или подберите торт с <a href="https://t.me/DolcezzaTorteBot?start=site" target="_blank" rel="noopener">ботом в Telegram</a>: там есть каталог</span></div>
       </div>
     </div>
   </div>
@@ -660,6 +670,7 @@ footer .cr{width:100%;border-top:1px solid rgba(176,141,87,.45);margin-top:30px;
         <li><span class="it">Fissiamo il giorno del ritiro</span><span class="ru">Назначаем день забора</span></li>
       </ol>
       <a class="btn acc wa-link wa-live" href="https://wa.me/393342411256" target="_blank" rel="noopener"><span class="it">Scrivi su WhatsApp</span><span class="ru">Написать в WhatsApp</span></a>
+      <a class="btn tg" href="https://t.me/DolcezzaTorteBot?start=site" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.4 15.2l-.4 4.3c.6 0 .8-.3 1.1-.6l2.7-2.5 5.5 4c1 .6 1.7.3 2-.9l3.6-16.8c.3-1.5-.6-2.1-1.6-1.7L1.2 9.5c-1.4.6-1.4 1.4-.2 1.8l5.4 1.7 12.5-7.9c.6-.4 1.1-.2.7.2z"/></svg><span class="it">Ordina su Telegram</span><span class="ru">Заказать в Telegram</span></a>
       <div class="small"><span class="it">Rispondo di solito entro un'ora</span><span class="ru">Обычно отвечаю в течение часа</span></div>
     </div>
   </div>
