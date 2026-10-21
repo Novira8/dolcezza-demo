@@ -811,8 +811,10 @@ addEventListener('resize',()=>{if(innerWidth>980)setMenu(false)});
 const fab=document.querySelector('.tg-fab');
 const fabRange=document.createRange();
 function textUnder(box){
+  // only text a person can actually see: skip the closed mobile menu and anything hidden or transparent
+  const seen=el=>el.checkVisibility?el.checkVisibility({opacityProperty:true,visibilityProperty:true}):el.offsetParent!==null;
   const tw=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:n=>
-    n.textContent.trim()&&!fab.contains(n)&&n.parentElement.offsetParent!==null?1:2});
+    n.textContent.trim()&&!fab.contains(n)&&!n.parentElement.closest('.mmenu:not(.open)')&&seen(n.parentElement)?1:2});
   for(let n;(n=tw.nextNode());){
     const p=n.parentElement.getBoundingClientRect();
     if(p.bottom<box.t||p.top>box.b||p.right<box.l||p.left>box.r) continue; // quick reject by parent box
@@ -831,6 +833,7 @@ function fabPlace(){
 let fabTick=false;
 addEventListener('scroll',()=>{if(!fabTick){fabTick=true;requestAnimationFrame(()=>{fabPlace();fabTick=false})}},{passive:true});
 addEventListener('resize',fabPlace);addEventListener('load',fabPlace);fabPlace();
+document.addEventListener('toggle',()=>setTimeout(fabPlace,50),true); // FAQ answer opened or closed under the button
 function navState(){nav.classList.toggle('solid',scrollY>40)}
 addEventListener('scroll',navState);navState();
 
