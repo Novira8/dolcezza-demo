@@ -123,6 +123,8 @@ body.menu-open .tg-fab{display:none}
 /* desktop: step aside where a block's text reaches the left edge (hero, order, footer) */
 .tg-fab{transition:transform .3s,opacity .4s}
 .tg-fab.away{opacity:0;pointer-events:none;transform:scale(.8)}
+.demo-tag{transition:opacity .4s}
+.demo-tag.away{opacity:0}
 @media(max-width:640px){.tg-fab{left:14px;bottom:16px;width:60px;height:60px}}
 @media(prefers-reduced-motion:reduce){.tg-fab{animation:none}}
 .tg-line{margin-top:14px;font-size:13px;color:var(--stone)}
@@ -810,11 +812,12 @@ addEventListener('resize',()=>{if(innerWidth>980)setMenu(false)});
 /* floating Telegram button: above phone width it steps aside whenever any visible text lies under it */
 const fab=document.querySelector('.tg-fab');
 const fabRange=document.createRange();
-function textUnder(box){
+function textUnder(box,self){
+  self=self||fab;
   // only text a person can actually see: skip the closed mobile menu and anything hidden or transparent
   const seen=el=>el.checkVisibility?el.checkVisibility({opacityProperty:true,visibilityProperty:true}):el.offsetParent!==null;
   const tw=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:n=>
-    n.textContent.trim()&&!fab.contains(n)&&!n.parentElement.closest('.mmenu:not(.open)')&&seen(n.parentElement)?1:2});
+    n.textContent.trim()&&!fab.contains(n)&&!(demoTag&&demoTag.contains(n))&&!self.contains(n)&&!n.parentElement.closest('.mmenu:not(.open)')&&seen(n.parentElement)?1:2});
   for(let n;(n=tw.nextNode());){
     const p=n.parentElement.getBoundingClientRect();
     if(p.bottom<box.t||p.top>box.b||p.right<box.l||p.left>box.r) continue; // quick reject by parent box
@@ -824,14 +827,23 @@ function textUnder(box){
   }
   return false;
 }
+const demoTag=document.querySelector('.demo-tag');
+function stepAside(el,pad){
+  const r=el.getBoundingClientRect();
+  el.classList.toggle('away',textUnder({l:r.left-pad,t:r.top-pad,r:r.right+pad,b:r.bottom+pad},el));
+}
 function fabPlace(){
   if(!fab) return;
   if(innerWidth<=640){fab.classList.remove('away');return}
-  const r=fab.getBoundingClientRect(), pad=10;
-  fab.classList.toggle('away',textUnder({l:r.left-pad,t:r.top-pad,r:r.right+pad,b:r.bottom+pad}));
+  stepAside(fab,10);
+  if(demoTag&&getComputedStyle(demoTag).position==='fixed') stepAside(demoTag,4);
 }
 let fabTick=false;
-addEventListener('scroll',()=>{if(!fabTick){fabTick=true;requestAnimationFrame(()=>{fabPlace();fabTick=false})}},{passive:true});
+const fabSoon=()=>{if(!fabTick){fabTick=true;requestAnimationFrame(()=>{fabPlace();fabTick=false})}};
+addEventListener('scroll',fabSoon,{passive:true});
+// text can also arrive under the button without page scroll: a block finishes fading in, a strip is swiped
+document.addEventListener('transitionend',e=>{if(e.target.classList&&e.target.classList.contains('rv'))fabSoon()},true);
+document.querySelectorAll('.gal,.revs').forEach(s=>s.addEventListener('scroll',fabSoon,{passive:true}));
 addEventListener('resize',fabPlace);addEventListener('load',fabPlace);fabPlace();
 document.addEventListener('toggle',()=>setTimeout(fabPlace,50),true); // FAQ answer opened or closed under the button
 function navState(){nav.classList.toggle('solid',scrollY>40)}
