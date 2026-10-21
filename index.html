@@ -807,14 +807,26 @@ burger.onclick=()=>setMenu(burger.getAttribute('aria-expanded')!=='true');
 mmenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
 addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
 addEventListener('resize',()=>{if(innerWidth>980)setMenu(false)});
-/* floating Telegram button: on wide screens hide it over blocks whose text starts at the left edge */
+/* floating Telegram button: above phone width it steps aside whenever any visible text lies under it */
 const fab=document.querySelector('.tg-fab');
+const fabRange=document.createRange();
+function textUnder(box){
+  const tw=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:n=>
+    n.textContent.trim()&&!fab.contains(n)&&n.parentElement.offsetParent!==null?1:2});
+  for(let n;(n=tw.nextNode());){
+    const p=n.parentElement.getBoundingClientRect();
+    if(p.bottom<box.t||p.top>box.b||p.right<box.l||p.left>box.r) continue; // quick reject by parent box
+    fabRange.selectNodeContents(n);
+    for(const q of fabRange.getClientRects())
+      if(q.width&&q.right>box.l&&q.left<box.r&&q.bottom>box.t&&q.top<box.b) return true;
+  }
+  return false;
+}
 function fabPlace(){
   if(!fab) return;
   if(innerWidth<=640){fab.classList.remove('away');return}
-  const r=fab.getBoundingClientRect(), x=r.left+r.width/2, y=r.top+r.height/2;
-  const under=document.elementsFromPoint(x,y).find(el=>!fab.contains(el));
-  fab.classList.toggle('away',!!(under&&under.closest('#top,#ordina,footer')));
+  const r=fab.getBoundingClientRect(), pad=10;
+  fab.classList.toggle('away',textUnder({l:r.left-pad,t:r.top-pad,r:r.right+pad,b:r.bottom+pad}));
 }
 let fabTick=false;
 addEventListener('scroll',()=>{if(!fabTick){fabTick=true;requestAnimationFrame(()=>{fabPlace();fabTick=false})}},{passive:true});
