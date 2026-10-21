@@ -120,6 +120,9 @@ nav.solid{background:#f7f4ef;border-bottom:1px solid var(--gold-line)}
 @keyframes fab-glow{0%,100%{box-shadow:0 0 0 2px rgba(255,201,77,.55),0 0 14px rgba(224,92,255,.65),0 8px 22px rgba(20,8,36,.35)}
   50%{box-shadow:0 0 0 2px rgba(255,201,77,.85),0 0 26px rgba(224,92,255,.95),0 8px 22px rgba(20,8,36,.35)}}
 body.menu-open .tg-fab{display:none}
+/* desktop: step aside where a block's text reaches the left edge (hero, order, footer) */
+.tg-fab{transition:transform .3s,opacity .4s}
+.tg-fab.away{opacity:0;pointer-events:none;transform:scale(.8)}
 @media(max-width:640px){.tg-fab{left:14px;bottom:16px;width:60px;height:60px}}
 @media(prefers-reduced-motion:reduce){.tg-fab{animation:none}}
 .tg-line{margin-top:14px;font-size:13px;color:var(--stone)}
@@ -804,6 +807,18 @@ burger.onclick=()=>setMenu(burger.getAttribute('aria-expanded')!=='true');
 mmenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
 addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
 addEventListener('resize',()=>{if(innerWidth>980)setMenu(false)});
+/* floating Telegram button: on wide screens hide it over blocks whose text starts at the left edge */
+const fab=document.querySelector('.tg-fab');
+function fabPlace(){
+  if(!fab) return;
+  if(innerWidth<=640){fab.classList.remove('away');return}
+  const r=fab.getBoundingClientRect(), x=r.left+r.width/2, y=r.top+r.height/2;
+  const under=document.elementsFromPoint(x,y).find(el=>!fab.contains(el));
+  fab.classList.toggle('away',!!(under&&under.closest('#top,#ordina,footer')));
+}
+let fabTick=false;
+addEventListener('scroll',()=>{if(!fabTick){fabTick=true;requestAnimationFrame(()=>{fabPlace();fabTick=false})}},{passive:true});
+addEventListener('resize',fabPlace);addEventListener('load',fabPlace);fabPlace();
 function navState(){nav.classList.toggle('solid',scrollY>40)}
 addEventListener('scroll',navState);navState();
 
