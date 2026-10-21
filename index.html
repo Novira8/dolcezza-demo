@@ -108,6 +108,20 @@ nav.solid{background:#f7f4ef;border-bottom:1px solid var(--gold-line)}
 .mmenu .btn.tg{margin-top:12px}
 .order-r .btn.tg{display:block;width:100%;margin-top:12px;border-color:var(--lilac);color:var(--lilac)}
 .order-r .btn.tg:hover{background:var(--lilac);color:var(--ink)}
+/* floating Telegram button = the bot's neon avatar, softly glowing */
+.tg-fab{position:fixed;right:18px;bottom:46px;z-index:70;width:66px;height:66px;border-radius:50%;display:block;
+  box-shadow:0 0 0 2px rgba(255,201,77,.55),0 0 14px rgba(224,92,255,.65),0 8px 22px rgba(20,8,36,.35);animation:fab-glow 3.2s ease-in-out infinite;transition:transform .3s}
+.tg-fab img{width:100%;height:100%;border-radius:50%;display:block}
+.tg-fab:hover{transform:scale(1.08)}
+.tg-fab-l{position:absolute;right:78px;top:50%;transform:translateY(-50%);white-space:nowrap;padding:8px 14px;border-radius:999px;
+  background:#160a24;color:#fff2fd;font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:0;pointer-events:none;transition:opacity .3s;
+  box-shadow:0 0 10px rgba(224,92,255,.5)}
+.tg-fab:hover .tg-fab-l,.tg-fab:focus-visible .tg-fab-l{opacity:1}
+@keyframes fab-glow{0%,100%{box-shadow:0 0 0 2px rgba(255,201,77,.55),0 0 14px rgba(224,92,255,.65),0 8px 22px rgba(20,8,36,.35)}
+  50%{box-shadow:0 0 0 2px rgba(255,201,77,.85),0 0 26px rgba(224,92,255,.95),0 8px 22px rgba(20,8,36,.35)}}
+body.menu-open .tg-fab{display:none}
+@media(max-width:640px){.tg-fab{right:14px;bottom:16px;width:60px;height:60px}}
+@media(prefers-reduced-motion:reduce){.tg-fab{animation:none}}
 .tg-line{margin-top:14px;font-size:13px;color:var(--stone)}
 .tg-line a{color:var(--acc);text-decoration:underline;text-underline-offset:3px}
 .mmenu .note{margin-top:14px;text-align:center;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--stone)}
@@ -685,6 +699,8 @@ footer .cr{width:100%;border-top:1px solid rgba(176,141,87,.45);margin-top:30px;
     <div class="cr">© 2026 Dolcezza · Lila cake · Navelli (AQ) · P.IVA <span class="it">— da inserire</span><span class="ru">— указать до публикации</span></div>
   </div>
 </footer>
+
+<a class="tg-fab" href="https://t.me/DolcezzaTorteBot?start=site" target="_blank" rel="noopener" aria-label="Telegram: Dolcezza bot"><img src="img/tg-bot.webp" alt="" width="66" height="66"><span class="tg-fab-l"><span class="it">Catalogo e prezzo</span><span class="ru">Каталог и цена</span></span></a>
 
 <div class="demo-tag"><span class="it">✦ Demo · progetto di studio</span><span class="ru">✦ Демо · учебный проект</span></div>
 
