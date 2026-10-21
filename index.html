@@ -328,8 +328,25 @@ br.m{display:none}@media(max-width:700px){br.m{display:inline}}
 
 /* reviews placeholder */
 .rev-sec{background:linear-gradient(120deg,#e9dcf3 0%,#f1e8f5 50%,#f7f4ef 100%);padding:clamp(60px,8vw,100px) 0;text-align:center}
-.rev-sec .q{font-family:'Cormorant Garamond',serif;font-size:72px;color:var(--acc);line-height:.6;height:30px}
-.rev-sec p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(24px,3vw,34px);margin-top:18px}
+/* review cards: white paper, gold + lilac double frame, butterflies perched on the corners */
+.rev-sec{padding:clamp(36px,7vh,100px) 0}
+.revs{display:grid;grid-template-columns:repeat(5,1fr);gap:26px;align-items:start;margin-top:clamp(26px,4.5vh,50px);text-align:left}
+.rcard{position:relative;background:#fff;padding:26px 22px 20px;border:1px solid var(--gold-line);outline:1px solid rgba(166,140,196,.5);outline-offset:-7px;
+  box-shadow:0 18px 36px -18px rgba(70,45,95,.38);transform:rotate(var(--r,0deg));transition:transform .5s}
+.rcard:hover{transform:rotate(0) translateY(-4px)}
+.rcard p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18.5px;line-height:1.35;color:var(--ink)}
+.rcard .who{margin-top:12px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
+.rcard .bfl{position:absolute;top:-20px;left:-18px;width:62px;height:34px;overflow:visible;--rot:-18deg;transform:rotate(var(--rot));animation:bfl-float 5s ease-in-out infinite}
+.rcard .bfl.s{top:auto;left:auto;bottom:-13px;right:-12px;width:38px;height:21px;--rot:16deg;animation-delay:-2.5s}
+.rcard:hover .bfl{animation:bfl-flap .4s ease-in-out 2}
+@keyframes bfl-float{0%,100%{transform:rotate(var(--rot)) translateY(0)}50%{transform:rotate(calc(var(--rot) + 4deg)) translateY(-3px)}}
+@keyframes bfl-flap{50%{transform:rotate(var(--rot)) scaleX(.6)}}
+@media(prefers-reduced-motion:reduce){.rcard .bfl,.rcard:hover .bfl{animation:none}}
+@media(max-width:1099px){.revs{grid-template-columns:repeat(3,1fr);row-gap:34px}}
+@media(max-width:940px){.revs{grid-template-columns:1fr 1fr}}
+/* phones: one swipeable row */
+@media(max-width:640px){.revs{display:flex;align-items:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;gap:20px;margin:24px -18px 0;padding:24px 22px 22px;scrollbar-width:none}
+  .revs::-webkit-scrollbar{display:none}.rcard{flex:0 0 80%;scroll-snap-align:center}}
 
 /* faq */
 .faq{max-width:1100px;margin:clamp(24px,4vh,50px) auto 0;columns:2;column-gap:60px}
@@ -573,11 +590,19 @@ footer .cr{width:100%;border-top:1px solid rgba(176,141,87,.45);margin-top:30px;
 </section>
 
 <!-- 5. ОТЗЫВЫ -->
-<section class="rev-sec">
-  <div class="wrap rv">
-    <div class="eyebrow"><span class="it">Recensioni</span><span class="ru">Отзывы</span></div>
-    <div class="q">“</div>
-    <p><span class="it">Qui appariranno le prime recensioni.</span><span class="ru">Здесь появятся первые отзывы.</span></p>
+<section class="rev-sec" id="recensioni">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="bfly" viewBox="0 0 80 44"><g transform="translate(40 0) scale(-1 1)"><path style="fill:var(--wing,#e9dff3);stroke:#a68cc4;stroke-width:.8" d="M1 19C6 12 18 4 33 1.5C36 1 37.5 3 36.5 5.5C34 11 31 16 27 20.5C19 21.5 9 21.5 1 21Z"/><path style="fill:var(--wing,#e9dff3);stroke:#a68cc4;stroke-width:.8" d="M1 22C9 21.5 19 21.5 25 22.5C27 25 26.5 29 24.5 31.5C25 34.5 23 37 20.5 37.5C19.5 40.5 16 42 13 41C7 39 3 31 1 23.5Z"/></g><g transform="translate(40 0)"><path style="fill:var(--wing,#e9dff3);stroke:#a68cc4;stroke-width:.8" d="M1 19C6 12 18 4 33 1.5C36 1 37.5 3 36.5 5.5C34 11 31 16 27 20.5C19 21.5 9 21.5 1 21Z"/><path style="fill:var(--wing,#e9dff3);stroke:#a68cc4;stroke-width:.8" d="M1 22C9 21.5 19 21.5 25 22.5C27 25 26.5 29 24.5 31.5C25 34.5 23 37 20.5 37.5C19.5 40.5 16 42 13 41C7 39 3 31 1 23.5Z"/></g><path d="M38.5 9Q36 3 33.5 1.5M41.5 9Q44 3 46.5 1.5" fill="none" stroke="#3a2a33" stroke-width=".8" stroke-linecap="round"/><ellipse cx="40" cy="12" rx="2.2" ry="2.4" fill="#3a2a33"/><ellipse cx="40" cy="25" rx="1.8" ry="11" fill="#3a2a33"/></symbol></svg>
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <div class="eyebrow"><span class="it">Recensioni</span><span class="ru">Отзывы</span></div>
+      <h2><span class="it">Le parole <em>dei clienti</em></span><span class="ru">Слова <em>клиентов</em></span></h2>    </div>
+    <div class="revs rv">
+      <div class="rcard" style="--r:-1.2deg"><svg class="bfl"><use href="#bfly"/></svg><p><span class="it">«La torta “Ciliegia e vaniglia” è un vero capolavoro di gusto. L'ho presa per un compleanno: è piaciuta a tutti.»</span><span class="ru">«Торт „Вишня-ваниль“ — настоящий вкусный шедевр. Покупала на день рождения. Понравился всем.»</span></p><div class="who"><span class="it">Valentina</span><span class="ru">Валентина</span></div></div>
+      <div class="rcard" style="--r:1deg;--wing:#f3dbe6"><svg class="bfl"><use href="#bfly"/></svg><p><span class="it">«Buonissima, l'abbiamo presa tante volte.»</span><span class="ru">«Очень вкусный, брали много раз.»</span></p><div class="who"><span class="it">Natalia</span><span class="ru">Наталия</span></div><svg class="bfl s"><use href="#bfly"/></svg></div>
+      <div class="rcard" style="--r:-.6deg"><svg class="bfl"><use href="#bfly"/></svg><p><span class="it">«Ho ordinato per la prima volta e sono rimasta piacevolmente sorpresa da un risultato così meraviglioso! La consiglio!»</span><span class="ru">«Заказывала впервые и была приятно удивлена таким чудесным результатом! Рекомендую!»</span></p><div class="who"><span class="it">Inna</span><span class="ru">Инна</span></div></div>
+      <div class="rcard" style="--r:1.4deg;--wing:#f3dbe6"><svg class="bfl"><use href="#bfly"/></svg><p><span class="it">«Ho ordinato una torta per la mia migliore amica. Buona! Bella! Decorazione di altissimo livello!»</span><span class="ru">«Заказала торт для любимой подруги. Вкусно! Красиво! Художественное оформление на высшем уровне!»</span></p><div class="who"><span class="it">Alena</span><span class="ru">Алёна</span></div><svg class="bfl s"><use href="#bfly"/></svg></div>
+      <div class="rcard" style="--r:-1deg"><svg class="bfl"><use href="#bfly"/></svg><p><span class="it">«Ho già ordinato tante volte i vostri dolci, questa volta la torta per il compleanno di mio figlio. Bambini e adulti contenti: non è rimasta nemmeno una briciola!»</span><span class="ru">«Уже не раз заказывала у Вас вкусности, в этот раз тортик на день рождения сыночка. И детки, и взрослые были довольны: от торта не осталось ни крошки!»</span></p><div class="who"><span class="it">Vera</span><span class="ru">Вера</span></div></div>
+    </div>
   </div>
 </section>
 
